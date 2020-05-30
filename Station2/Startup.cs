@@ -8,6 +8,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Station2.Models;
+using Microsoft.EntityFrameworkCore;
+//using Station2.Data;
 
 namespace Station2
 {
@@ -23,10 +25,21 @@ namespace Station2
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<IItemMasterRepository, MockItemRepository>();
-            services.AddScoped<IItemCategoryRepository, MockCategoryRepository>();
 
-            services.AddControllersWithViews();
+                        services.AddDbContext<AppDbContext>(options =>
+                                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+                        services.AddDbContext<AppDbContext>(options =>
+                                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                        services.AddScoped<IItemMasterRepository, ItemRepository>();
+                        services.AddScoped<IItemCategoryRepository, CategoryRepository>();
+                        services.AddScoped<ShoppingCart>(sp => ShoppingCart.GetCart(sp));
+            //to create a scoped shopping cart using the GetCart method
+            services.AddHttpContextAccessor();
+            services.AddSession();
+                        services.AddControllersWithViews();
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -42,6 +55,8 @@ namespace Station2
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseSession();
+            //to get the support of sessions  
 
             app.UseRouting();
 

@@ -1,0 +1,36 @@
+﻿@model ItemMaster
+
+    <tr>
+        <td>
+            @Model.ItemName)
+        </td>
+        <td>
+            @Model.ItemDescription)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => Model.Price)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => Model.InStock)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => Model.IsItemOfTheWeek)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => Model.CategoryName.CategoryName)
+        </td>
+
+       <td>
+            <div class="addToCart">
+                <p class="button">
+                    <a class="btn btn-primary accent-indigo"
+                       asp-controller="ShoppingCart"
+                       asp-action="AddToShoppingCart"
+                       asp-route-itemId="@Model.ItemId">Add to cart</a>
+                </p>
+            </div>
+
+        </td>
+    </tr>
+    
+   
