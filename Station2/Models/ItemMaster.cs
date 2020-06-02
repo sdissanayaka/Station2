@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -15,9 +16,8 @@ namespace Station2.Models
         public decimal Price { get; set; }
         public bool InStock { get; set; }
         public bool IsItemOfTheWeek { get; set; }
-        public int CategoryId { get; set; }
-        //public string CategoryName { get; set; }
-        public ItemCategory CategoryName { get; set; }
+        //[ForeignKey("ItemCategory")]
+        public ItemCategory Category { get; set; }
 
 
 

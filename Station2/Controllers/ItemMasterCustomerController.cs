@@ -53,7 +53,7 @@ namespace Station2.Controllers
             }
             else
             {
-                items = _itemRepository.AllItems.Where(p => p.CategoryName.CategoryName == category)
+                items = _itemRepository.AllItems.Where(p => p.Category.CategoryName == category)
                     .OrderBy(p => p.ItemId);
                 currentCategory = _categoryRepository.AllCategories.FirstOrDefault(c => c.CategoryName == category)?.CategoryName;
             }

@@ -58,10 +58,7 @@ namespace Station2.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("CategoryNameCategoryId")
+                    b.Property<int?>("CategoryId")
                         .HasColumnType("int");
 
                     b.Property<bool>("InStock")
@@ -81,7 +78,7 @@ namespace Station2.Migrations
 
                     b.HasKey("ItemId");
 
-                    b.HasIndex("CategoryNameCategoryId");
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("ItemMaster");
 
@@ -89,12 +86,29 @@ namespace Station2.Migrations
                         new
                         {
                             ItemId = 1,
-                            CategoryId = 1,
                             InStock = true,
                             IsItemOfTheWeek = true,
                             ItemDescription = "Replace your engine oil",
                             ItemName = "Engine oil",
                             Price = 12.95m
+                        },
+                        new
+                        {
+                            ItemId = 2,
+                            InStock = true,
+                            IsItemOfTheWeek = true,
+                            ItemDescription = "Cleaning the body of the car",
+                            ItemName = "Body Wash",
+                            Price = 120.90m
+                        },
+                        new
+                        {
+                            ItemId = 3,
+                            InStock = true,
+                            IsItemOfTheWeek = false,
+                            ItemDescription = "DSI",
+                            ItemName = "Tyre",
+                            Price = 33m
                         });
                 });
 
@@ -123,9 +137,9 @@ namespace Station2.Migrations
 
             modelBuilder.Entity("Station2.Models.ItemMaster", b =>
                 {
-                    b.HasOne("Station2.Models.ItemCategory", "CategoryName")
+                    b.HasOne("Station2.Models.ItemCategory", "Category")
                         .WithMany("Items")
-                        .HasForeignKey("CategoryNameCategoryId");
+                        .HasForeignKey("CategoryId");
                 });
 
             modelBuilder.Entity("Station2.Models.ShoppingCartItem", b =>

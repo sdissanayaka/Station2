@@ -10,14 +10,14 @@ using Station2.Models;
 namespace Station2.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20200516102627_InitialMigration")]
+    [Migration("20200531135833_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.2")
+                .HasAnnotation("ProductVersion", "3.1.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -42,11 +42,13 @@ namespace Station2.Migrations
                         new
                         {
                             CategoryId = 1,
+                            CategoryDescription = "Buy your raw materials",
                             CategoryName = "Raw Materials"
                         },
                         new
                         {
                             CategoryId = 2,
+                            CategoryDescription = "Get your service",
                             CategoryName = "Services"
                         });
                 });
@@ -58,10 +60,7 @@ namespace Station2.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("CategoryNameCategoryId")
+                    b.Property<int?>("CategoryId")
                         .HasColumnType("int");
 
                     b.Property<bool>("InStock")
@@ -81,7 +80,7 @@ namespace Station2.Migrations
 
                     b.HasKey("ItemId");
 
-                    b.HasIndex("CategoryNameCategoryId");
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("ItemMaster");
 
@@ -89,20 +88,67 @@ namespace Station2.Migrations
                         new
                         {
                             ItemId = 1,
-                            CategoryId = 1,
                             InStock = true,
                             IsItemOfTheWeek = true,
-                            ItemDescription = "Our famous apple pies!",
+                            ItemDescription = "Replace your engine oil",
                             ItemName = "Engine oil",
                             Price = 12.95m
+                        },
+                        new
+                        {
+                            ItemId = 2,
+                            InStock = true,
+                            IsItemOfTheWeek = true,
+                            ItemDescription = "Cleaning the body of the car",
+                            ItemName = "Body Wash",
+                            Price = 120.90m
+                        },
+                        new
+                        {
+                            ItemId = 3,
+                            InStock = true,
+                            IsItemOfTheWeek = false,
+                            ItemDescription = "DSI",
+                            ItemName = "Tyre",
+                            Price = 33m
                         });
+                });
+
+            modelBuilder.Entity("Station2.Models.ShoppingCartItem", b =>
+                {
+                    b.Property<int>("ShoppingCartItemId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Amount")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ItemId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ShoppingCartId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ShoppingCartItemId");
+
+                    b.HasIndex("ItemId");
+
+                    b.ToTable("ShoppingCartItems");
                 });
 
             modelBuilder.Entity("Station2.Models.ItemMaster", b =>
                 {
-                    b.HasOne("Station2.Models.ItemCategory", "CategoryName")
+                    b.HasOne("Station2.Models.ItemCategory", "Category")
                         .WithMany("Items")
-                        .HasForeignKey("CategoryNameCategoryId");
+                        .HasForeignKey("CategoryId");
+                });
+
+            modelBuilder.Entity("Station2.Models.ShoppingCartItem", b =>
+                {
+                    b.HasOne("Station2.Models.ItemMaster", "Item")
+                        .WithMany()
+                        .HasForeignKey("ItemId");
                 });
 #pragma warning restore 612, 618
         }

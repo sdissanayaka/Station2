@@ -19,14 +19,14 @@ namespace Station2.Models
         {
             get
             {
-                return _appDbContext.ItemMaster.Include(c => c.CategoryName);
+                return _appDbContext.ItemMaster.Include(c => c.Category);
             }
         }
         public IEnumerable<ItemMaster> ItemsOfTheWeek
         {
             get
             {
-                return _appDbContext.ItemMaster.Include(c => c.CategoryName).Where(p => p.IsItemOfTheWeek);
+                return _appDbContext.ItemMaster.Include(c => c.Category).Where(p => p.IsItemOfTheWeek);
             }
         }
         public ItemMaster GetItemById(int itemId)

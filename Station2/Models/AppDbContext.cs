@@ -15,6 +15,8 @@ namespace Station2.Models
         public DbSet<ItemMaster> ItemMaster { get; set; }
         public DbSet<ItemCategory> ItemCategories { get; set; }
         public DbSet<ShoppingCartItem> ShoppingCartItems { get; set; }
+        public DbSet<CustomerOrder> CustomerOrders { get; set; }
+        public DbSet<CustomerOrderDetail> CustomerOrderDetails { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -31,9 +33,30 @@ namespace Station2.Models
                 ItemName = "Engine oil",
                 Price = 12.95M,
                 ItemDescription = "Replace your engine oil",
-                CategoryId = 1,
                 InStock = true,
                 IsItemOfTheWeek = true,
+                //CategoryName = "Raw Materials",
+            });
+
+            modelBuilder.Entity<ItemMaster>().HasData(new ItemMaster
+            {
+                ItemId = 2,
+                ItemName = "Body Wash",
+                Price = 120.90M,
+                ItemDescription = "Cleaning the body of the car",
+                InStock = true,
+                IsItemOfTheWeek = true,
+                //CategoryName = "Services",
+            });
+
+            modelBuilder.Entity<ItemMaster>().HasData(new ItemMaster
+            {
+                ItemId = 3,
+                ItemName = "Tyre",
+                Price = 33M,
+                ItemDescription = "DSI",
+                InStock = true,
+                IsItemOfTheWeek = false,
                 //CategoryName = "Raw Materials",
             });
 
