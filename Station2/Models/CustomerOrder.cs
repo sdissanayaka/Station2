@@ -10,7 +10,7 @@ namespace Station2.Models
     public class CustomerOrder
     {
         [BindNever]
-        public int OrderId { get; set; }
+        public int CustomerOrderId { get; set; }
 
         public List<CustomerOrderDetail> OrderDetails { get; set; }
 

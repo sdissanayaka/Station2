@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 namespace Station2.Models
 {
     public class CustomerOrderRepository : ICustomerOrderRepository
+        //finctionalities defined in IcustomerOrderRepository class are implemented here
     {
         private readonly AppDbContext _appDbContext;
         private readonly ShoppingCart _shoppingCart;
+        //uses the appdbcontext ans shopping cart
 
         public CustomerOrderRepository(AppDbContext appDbContext, ShoppingCart shoppingCart)
         {
@@ -17,6 +19,7 @@ namespace Station2.Models
         }
 
         public void CreateOrder(CustomerOrder order)
+            //use the repositories to create both order and its order details
         {
             order.OrderPlaced = DateTime.Now;
 

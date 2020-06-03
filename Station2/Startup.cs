@@ -26,14 +26,16 @@ namespace Station2
         public void ConfigureServices(IServiceCollection services)
         {
 
-                        services.AddDbContext<AppDbContext>(options =>
+            services.AddDbContext<AppDbContext>(options =>
                                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-                        services.AddDbContext<AppDbContext>(options =>
+            services.AddDbContext<AppDbContext>(options =>
                                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-                        services.AddScoped<IItemMasterRepository, ItemRepository>();
-                        services.AddScoped<IItemCategoryRepository, CategoryRepository>();
-                        services.AddScoped<ShoppingCart>(sp => ShoppingCart.GetCart(sp));
+            services.AddScoped<IItemMasterRepository, ItemRepository>();
+            services.AddScoped<IItemCategoryRepository, CategoryRepository>();
+            services.AddScoped<ICustomerOrderRepository, CustomerOrderRepository>();
+
+            services.AddScoped<ShoppingCart>(sp => ShoppingCart.GetCart(sp));
             //to create a scoped shopping cart using the GetCart method
             services.AddHttpContextAccessor();
             services.AddSession();
