@@ -56,7 +56,7 @@ namespace Station2.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ItemId,CategoryId,ItemName,ItemDescription,Price,InStock,IsItemOfTheWeek")] ItemMaster itemMaster)
+        public async Task<IActionResult> Create([Bind("ItemId,CategoryId,ItemName,ItemDescription,Price,UOM,StockQuantity,InStock")] ItemMaster itemMaster)
         {
             if (ModelState.IsValid)
             {
@@ -90,7 +90,7 @@ namespace Station2.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ItemId,CategoryId,ItemName,ItemDescription,Price,InStock,IsItemOfTheWeek")] ItemMaster itemMaster)
+        public async Task<IActionResult> Edit(int id, [Bind("ItemId,CategoryId,ItemName,ItemDescription,Price,UOM,StockQuantity,InStock")] ItemMaster itemMaster)
         {
             if (id != itemMaster.ItemId)
             {

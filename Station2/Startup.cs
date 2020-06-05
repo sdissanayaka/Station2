@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Station2.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 //using Station2.Data;
 
 namespace Station2
@@ -31,6 +32,13 @@ namespace Station2
 
             services.AddDbContext<AppDbContext>(options =>
                                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            //services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<AppDbContext>();
+            //services.AddDIdentity<ApplicatioUser, IdentityRole>(option =>
+            //options.SignIn.RequireConfirmedaccount = true)
+            //.AddEntityFrameworkStores<AppDbContext>();
+
+            //bring basic functionality in working with identity in your application
+            //identity needs to use entity framwork to store its data and its going to appdbcontext which inherit from IdentityDbContext 
             //to registor all the irepositories with their implementation repositories
             services.AddScoped<IItemMasterRepository, ItemRepository>();
             services.AddScoped<IItemCategoryRepository, CategoryRepository>();
@@ -40,7 +48,8 @@ namespace Station2
             //to create a scoped shopping cart using the GetCart method
             services.AddHttpContextAccessor();
             services.AddSession();
-                        services.AddControllersWithViews();
+            services.AddControllersWithViews();
+            //services.AddRazorPages(); //support for razor pages
 
 
         }
@@ -62,6 +71,7 @@ namespace Station2
             //to get the support of sessions  
 
             app.UseRouting();
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

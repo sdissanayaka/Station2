@@ -23,10 +23,13 @@
                 @Html.DisplayNameFor(model => model.Price)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.InStock)
+                @Html.DisplayNameFor(model => model.UOM)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IsItemOfTheWeek)
+                @Html.DisplayNameFor(model => model.StockQuantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InStock)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Category)
@@ -47,10 +50,13 @@
                 @Html.DisplayFor(modelItem => item.Price)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.InStock)
+                @Html.DisplayFor(modelItem => item.UOM)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IsItemOfTheWeek)
+                @Html.DisplayFor(modelItem => item.StockQuantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InStock)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Category.CategoryId)

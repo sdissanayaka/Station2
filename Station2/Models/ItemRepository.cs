@@ -22,13 +22,16 @@ namespace Station2.Models
                 return _appDbContext.ItemMaster.Include(c => c.Category);
             }
         }
-        public IEnumerable<ItemMaster> ItemsOfTheWeek
-        {
-            get
-            {
-                return _appDbContext.ItemMaster.Include(c => c.Category).Where(p => p.IsItemOfTheWeek);
-            }
-        }
+
+        public IEnumerable<ItemMaster> ItemsOfTheWeek => throw new NotImplementedException();
+
+        /*public IEnumerable<ItemMaster> ItemsOfTheWeek
+{
+get
+{
+return _appDbContext.ItemMaster.Include(c => c.Category).Where(p => p.IsItemOfTheWeek);
+}
+}*/
         public ItemMaster GetItemById(int itemId)
         {
             return _appDbContext.ItemMaster.FirstOrDefault(p => p.ItemId == itemId);

@@ -1,12 +1,17 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Station2.Models;
 
 namespace Station2.Models
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext : IdentityDbContext<IdentityUser>
+        //base class for the EntityFrameWorkCore context to use with identity
+        //IdentityUser is a built-in class that can be used to represent a user in Identity
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
@@ -17,6 +22,8 @@ namespace Station2.Models
         public DbSet<ShoppingCartItem> ShoppingCartItems { get; set; }
         public DbSet<CustomerOrder> CustomerOrders { get; set; }
         public DbSet<CustomerOrderDetail> CustomerOrderDetails { get; set; }
+        //public DbSet<Supplier> Suppliers { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -34,8 +41,10 @@ namespace Station2.Models
                 ItemName = "Engine oil",
                 Price = 12.95M,
                 ItemDescription = "Replace your engine oil",
+                UOM = "litre",
+                StockQuantity = 500,
                 InStock = true,
-                IsItemOfTheWeek = true,
+
                 //CategoryName = "Raw Materials",
             });
 
@@ -46,8 +55,9 @@ namespace Station2.Models
                 ItemName = "Body Wash",
                 Price = 120.90M,
                 ItemDescription = "Cleaning the body of the car",
+                //UOM = "",
+                //StockQuantity = 
                 InStock = true,
-                IsItemOfTheWeek = true,
                 //CategoryName = "Services",
             });
 
@@ -58,12 +68,15 @@ namespace Station2.Models
                 ItemName = "Tyre",
                 Price = 33M,
                 ItemDescription = "DSI",
+                UOM = "Units",
+                StockQuantity = 100,
                 InStock = true,
-                IsItemOfTheWeek = false,
+
                 //CategoryName = "Raw Materials",
             });
 
         }
+
 
     }
 }
