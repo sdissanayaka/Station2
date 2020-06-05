@@ -31,6 +31,7 @@ namespace Station2
 
             services.AddDbContext<AppDbContext>(options =>
                                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            //to registor all the irepositories with their implementation repositories
             services.AddScoped<IItemMasterRepository, ItemRepository>();
             services.AddScoped<IItemCategoryRepository, CategoryRepository>();
             services.AddScoped<ICustomerOrderRepository, CustomerOrderRepository>();

@@ -12,22 +12,17 @@ namespace Station2.Controllers
     public class ItemMastersController : Controller
     {
         private readonly AppDbContext _context;
-        //private readonly IItemMasterRepository _itemRepository;
-        //private readonly IItemCategoryRepository _categoryRepository;
 
-        
-        public ItemMastersController( AppDbContext context)
+        public ItemMastersController(AppDbContext context)
         {
-            //_itemRepository = itemRepository;
-            //_categoryRepository = categoryRepository;
             _context = context;
-
         }
 
         // GET: ItemMasters
         public async Task<IActionResult> Index()
         {
-            return View(await _context.ItemMaster.ToListAsync());
+            var appDbContext = _context.ItemMaster.Include(i => i.Category);
+            return View(await appDbContext.ToListAsync());
         }
 
         // GET: ItemMasters/Details/5
@@ -39,6 +34,7 @@ namespace Station2.Controllers
             }
 
             var itemMaster = await _context.ItemMaster
+                .Include(i => i.Category)
                 .FirstOrDefaultAsync(m => m.ItemId == id);
             if (itemMaster == null)
             {
@@ -51,6 +47,7 @@ namespace Station2.Controllers
         // GET: ItemMasters/Create
         public IActionResult Create()
         {
+            ViewData["CategoryId"] = new SelectList(_context.ItemCategories, "CategoryId", "CategoryId");
             return View();
         }
 
@@ -59,7 +56,7 @@ namespace Station2.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ItemId,ItemName,ItemDescription,Price,InStock,IsItemOfTheWeek,CategoryId,CategoryName.CategoryName")] ItemMaster itemMaster)
+        public async Task<IActionResult> Create([Bind("ItemId,CategoryId,ItemName,ItemDescription,Price,InStock,IsItemOfTheWeek")] ItemMaster itemMaster)
         {
             if (ModelState.IsValid)
             {
@@ -67,6 +64,7 @@ namespace Station2.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["CategoryId"] = new SelectList(_context.ItemCategories, "CategoryId", "CategoryId", itemMaster.CategoryId);
             return View(itemMaster);
         }
 
@@ -83,6 +81,7 @@ namespace Station2.Controllers
             {
                 return NotFound();
             }
+            ViewData["CategoryId"] = new SelectList(_context.ItemCategories, "CategoryId", "CategoryId", itemMaster.CategoryId);
             return View(itemMaster);
         }
 
@@ -91,7 +90,7 @@ namespace Station2.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ItemId,ItemName,ItemDescription,Price,InStock,IsItemOfTheWeek,CategoryId,CategoryName")] ItemMaster itemMaster)
+        public async Task<IActionResult> Edit(int id, [Bind("ItemId,CategoryId,ItemName,ItemDescription,Price,InStock,IsItemOfTheWeek")] ItemMaster itemMaster)
         {
             if (id != itemMaster.ItemId)
             {
@@ -118,6 +117,7 @@ namespace Station2.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["CategoryId"] = new SelectList(_context.ItemCategories, "CategoryId", "CategoryId", itemMaster.CategoryId);
             return View(itemMaster);
         }
 
@@ -130,6 +130,7 @@ namespace Station2.Controllers
             }
 
             var itemMaster = await _context.ItemMaster
+                .Include(i => i.Category)
                 .FirstOrDefaultAsync(m => m.ItemId == id);
             if (itemMaster == null)
             {

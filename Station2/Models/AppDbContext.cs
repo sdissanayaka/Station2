@@ -30,6 +30,7 @@ namespace Station2.Models
             modelBuilder.Entity<ItemMaster>().HasData(new ItemMaster
             {
                 ItemId = 1,
+                CategoryId = 1,
                 ItemName = "Engine oil",
                 Price = 12.95M,
                 ItemDescription = "Replace your engine oil",
@@ -41,6 +42,7 @@ namespace Station2.Models
             modelBuilder.Entity<ItemMaster>().HasData(new ItemMaster
             {
                 ItemId = 2,
+                CategoryId = 2,
                 ItemName = "Body Wash",
                 Price = 120.90M,
                 ItemDescription = "Cleaning the body of the car",
@@ -52,6 +54,7 @@ namespace Station2.Models
             modelBuilder.Entity<ItemMaster>().HasData(new ItemMaster
             {
                 ItemId = 3,
+                CategoryId = 1,
                 ItemName = "Tyre",
                 Price = 33M,
                 ItemDescription = "DSI",

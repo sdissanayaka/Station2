@@ -10,7 +10,7 @@ using Station2.Models;
 namespace Station2.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20200531135833_InitialMigration")]
+    [Migration("20200603181507_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -20,6 +20,99 @@ namespace Station2.Migrations
                 .HasAnnotation("ProductVersion", "3.1.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("Station2.Models.CustomerOrder", b =>
+                {
+                    b.Property<int>("CustomerOrderId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AddressLine1")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
+
+                    b.Property<string>("AddressLine2")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("Country")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime>("OrderPlaced")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("OrderTotal")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(25)")
+                        .HasMaxLength(25);
+
+                    b.Property<string>("State")
+                        .HasColumnType("nvarchar(10)")
+                        .HasMaxLength(10);
+
+                    b.Property<string>("ZipCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(10)")
+                        .HasMaxLength(10);
+
+                    b.HasKey("CustomerOrderId");
+
+                    b.ToTable("CustomerOrders");
+                });
+
+            modelBuilder.Entity("Station2.Models.CustomerOrderDetail", b =>
+                {
+                    b.Property<int>("CustomerOrderDetailId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Amount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CustomerOrderId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ItemId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("CustomerOrderDetailId");
+
+                    b.HasIndex("CustomerOrderId");
+
+                    b.HasIndex("ItemId");
+
+                    b.ToTable("CustomerOrderDetails");
+                });
 
             modelBuilder.Entity("Station2.Models.ItemCategory", b =>
                 {
@@ -60,7 +153,7 @@ namespace Station2.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CategoryId")
+                    b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
                     b.Property<bool>("InStock")
@@ -88,6 +181,7 @@ namespace Station2.Migrations
                         new
                         {
                             ItemId = 1,
+                            CategoryId = 1,
                             InStock = true,
                             IsItemOfTheWeek = true,
                             ItemDescription = "Replace your engine oil",
@@ -97,6 +191,7 @@ namespace Station2.Migrations
                         new
                         {
                             ItemId = 2,
+                            CategoryId = 2,
                             InStock = true,
                             IsItemOfTheWeek = true,
                             ItemDescription = "Cleaning the body of the car",
@@ -106,6 +201,7 @@ namespace Station2.Migrations
                         new
                         {
                             ItemId = 3,
+                            CategoryId = 1,
                             InStock = true,
                             IsItemOfTheWeek = false,
                             ItemDescription = "DSI",
@@ -137,11 +233,28 @@ namespace Station2.Migrations
                     b.ToTable("ShoppingCartItems");
                 });
 
+            modelBuilder.Entity("Station2.Models.CustomerOrderDetail", b =>
+                {
+                    b.HasOne("Station2.Models.CustomerOrder", "CustomerOrder")
+                        .WithMany("OrderDetails")
+                        .HasForeignKey("CustomerOrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Station2.Models.ItemMaster", "ItemMaster")
+                        .WithMany()
+                        .HasForeignKey("ItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Station2.Models.ItemMaster", b =>
                 {
                     b.HasOne("Station2.Models.ItemCategory", "Category")
                         .WithMany("Items")
-                        .HasForeignKey("CategoryId");
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Station2.Models.ShoppingCartItem", b =>

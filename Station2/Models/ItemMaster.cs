@@ -11,12 +11,14 @@ namespace Station2.Models
     {
         [Key]
         public int ItemId { get; set; }
+        public int CategoryId { get; set; }
+
         public string ItemName { get; set; }
         public string ItemDescription { get; set; }
         public decimal Price { get; set; }
         public bool InStock { get; set; }
         public bool IsItemOfTheWeek { get; set; }
-        //[ForeignKey("ItemCategory")]
+        [ForeignKey("CategoryId")]
         public ItemCategory Category { get; set; }
 
 

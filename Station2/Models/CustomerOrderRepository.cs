@@ -16,6 +16,7 @@ namespace Station2.Models
         {
             _appDbContext = appDbContext;
             _shoppingCart = shoppingCart;
+            //uses the appdbcontext ans shopping cart
         }
 
         public void CreateOrder(CustomerOrder order)
@@ -30,6 +31,7 @@ namespace Station2.Models
             //adding the order with its details
 
             foreach (var shoppingCartItem in shoppingCartItems)
+            //create new order detils for each shopping cart item
             {
                 var orderDetail = new CustomerOrderDetail
                 {
@@ -39,11 +41,14 @@ namespace Station2.Models
                 };
 
                 order.OrderDetails.Add(orderDetail);
+                //add order details to order
             }
-
+            //in each run of this loop a new order detail is added to the appdbcontext.Customer orederdetail
             _appDbContext.CustomerOrders.Add(order);
+            //add order(order details) with all order details to appdbContext. order is being tracked by EF Core
 
             _appDbContext.SaveChanges();
+            //save both the order and order details into  my database
         }
     }
 }

@@ -14,7 +14,7 @@ namespace Station2.Controllers
         {
             private readonly ICustomerOrderRepository _orderRepository;
             private readonly ShoppingCart _shoppingCart;
-
+        //using order repository and shopping cart through dependency injection and get instances of both of them
             public CustomerOrderController(ICustomerOrderRepository orderRepository, ShoppingCart shoppingCart)
             {
                 _orderRepository = orderRepository;
@@ -23,12 +23,15 @@ namespace Station2.Controllers
 
             // GET: /<controller>/
             public IActionResult Checkout()
+            //will be invoked when we are creating the order
             {
                 return View();
             }
 
             [HttpPost]
+            //this method is need to be called when HTTP POST is done
             public IActionResult Checkout(CustomerOrder order)
+            //order is created by using model binding
             {
                 var items = _shoppingCart.GetShoppingCartItems();
                 _shoppingCart.ShoppingCartItems = items;
@@ -38,7 +41,8 @@ namespace Station2.Controllers
                     ModelState.AddModelError("", "Your cart is empty, add some items first");
                 }
 
-                if (ModelState.IsValid)
+                if (ModelState.IsValid)//check model state is valid property
+                //IsValid Property is going to check the state of the odere model instance 
                 {
                     _orderRepository.CreateOrder(order);
                     _shoppingCart.ClearCart();

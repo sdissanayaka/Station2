@@ -151,7 +151,7 @@ namespace Station2.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CategoryId")
+                    b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
                     b.Property<bool>("InStock")
@@ -179,6 +179,7 @@ namespace Station2.Migrations
                         new
                         {
                             ItemId = 1,
+                            CategoryId = 1,
                             InStock = true,
                             IsItemOfTheWeek = true,
                             ItemDescription = "Replace your engine oil",
@@ -188,6 +189,7 @@ namespace Station2.Migrations
                         new
                         {
                             ItemId = 2,
+                            CategoryId = 2,
                             InStock = true,
                             IsItemOfTheWeek = true,
                             ItemDescription = "Cleaning the body of the car",
@@ -197,6 +199,7 @@ namespace Station2.Migrations
                         new
                         {
                             ItemId = 3,
+                            CategoryId = 1,
                             InStock = true,
                             IsItemOfTheWeek = false,
                             ItemDescription = "DSI",
@@ -247,7 +250,9 @@ namespace Station2.Migrations
                 {
                     b.HasOne("Station2.Models.ItemCategory", "Category")
                         .WithMany("Items")
-                        .HasForeignKey("CategoryId");
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Station2.Models.ShoppingCartItem", b =>
