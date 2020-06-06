@@ -22,7 +22,7 @@ namespace Station2.Models
         public DbSet<ShoppingCartItem> ShoppingCartItems { get; set; }
         public DbSet<CustomerOrder> CustomerOrders { get; set; }
         public DbSet<CustomerOrderDetail> CustomerOrderDetails { get; set; }
-        //public DbSet<Supplier> Suppliers { get; set; }
+        public DbSet<Supplier> Suppliers { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
