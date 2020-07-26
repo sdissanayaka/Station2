@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Station2.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,5 +11,6 @@ namespace Station2.Models
     //allowas to create an order and accept the order
     {
         void CreateOrder (CustomerOrder order);
+        //void CreateOrder(ShoppingCartViewModel order);
     }
 }

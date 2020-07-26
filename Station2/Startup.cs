@@ -10,6 +10,7 @@ using Microsoft.Extensions.Hosting;
 using Station2.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 //using Station2.Data;
 
 namespace Station2
@@ -36,10 +37,19 @@ namespace Station2
             //services.AddDIdentity<ApplicatioUser, IdentityRole>(option =>
             //options.SignIn.RequireConfirmedaccount = true)
             //.AddEntityFrameworkStores<AppDbContext>();
+            services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<AppDbContext>()
+                .AddDefaultTokenProviders();
+
 
             //bring basic functionality in working with identity in your application
             //identity needs to use entity framwork to store its data and its going to appdbcontext which inherit from IdentityDbContext 
             //to registor all the irepositories with their implementation repositories
+            /*services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = $"/Identity/Account/Login";
+                options.LogoutPath = $"/Identity/Account/Logout";
+                options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
+            });*/
             services.AddScoped<IItemMasterRepository, ItemRepository>();
             services.AddScoped<IItemCategoryRepository, CategoryRepository>();
             services.AddScoped<ICustomerOrderRepository, CustomerOrderRepository>();
@@ -49,7 +59,12 @@ namespace Station2
             services.AddHttpContextAccessor();
             services.AddSession();
             services.AddControllersWithViews();
-            //services.AddRazorPages(); //support for razor pages
+            //services.AddControllersWithViews().AddNewtonsoftJson().AddRazorRuntimeCompilation();
+
+            services.AddRazorPages(); //support for razor pages
+            services.AddSingleton<IEmailSender, EmailSender>(); // using Microsoft.AspNetCore.Identity.UI.Services;
+
+
 
 
         }
@@ -79,7 +94,8 @@ namespace Station2
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{area=Customer}/{controller=ItemMasterCustomer}/{action=List}/{id?}");
+                endpoints.MapRazorPages();
             });
         }
     }

@@ -6,15 +6,29 @@
                 <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-dark" asp-area="" asp-controller="ItemMasterCustomer" asp-action="List">Home</a>
+                <a class="nav-link text-dark bg-gradient-cyan rounded-pill mr-2" asp-area="Customer" asp-controller="ItemMasterCustomer" asp-action="List">Home</a>
+            </li>
+            <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle text-dark bg-gradient-cyan rounded-pill mr-2" href="#" id="navbarDropDown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Content Managment
+                   </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropDown">
+                      <a class="dropdown-item text-dark" asp-area="Admin" asp-controller="ItemCategories" asp-action="Index">Category</a>
+                      <a class="dropdown-item text-dark" asp-area="Admin" asp-controller="ItemMasters" asp-action="Index">Item Master</a>
+                      <a class="dropdown-item text-dark" asp-area="Admin" asp-controller="Suppliers" asp-action="Index">Suppliers</a>
+                      <a class="dropdown-item text-dark" asp-area="Admin" asp-controller="PurchaseOrder" asp-action="Index">Purchase Order</a>
+
+                  </div>
+            </li>
+
+
+            <li class="nav-item ">
+                <a class="nav-link text-dark bg-gradient-cyan rounded-pill mr-2" asp-area="" asp-controller="Contact" asp-action="Index">Contact</a>
             </li>
             @await Component.InvokeAsync("CategoryMenu")
 
-            <li class="nav-item ">
-                <a class="nav-link text-dark" asp-area="" asp-controller="Contact" asp-action="Index">Contact</a>
-            </li>
             @await Component.InvokeAsync("ShoppingCartSummary")
-            <!--partial name="_LoginPartial" /-->
+            <partial name="_LoginPartial"/>
 
 
 

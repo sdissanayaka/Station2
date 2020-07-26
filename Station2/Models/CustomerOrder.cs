@@ -11,6 +11,10 @@ namespace Station2.Models
     {
         [BindNever]
         public int CustomerOrderId { get; set; }
+        
+
+        //public ShoppingCart ShoppingCart { get; set; }
+
 
         public List<CustomerOrderDetail> OrderDetails { get; set; }
 
