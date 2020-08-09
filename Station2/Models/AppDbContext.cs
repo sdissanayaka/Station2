@@ -23,11 +23,24 @@ namespace Station2.Models
         public DbSet<CustomerOrder> CustomerOrders { get; set; }
         public DbSet<CustomerOrderDetail> CustomerOrderDetails { get; set; }
         public DbSet<Supplier> Suppliers { get; set; }
+        public DbSet<CustomerPayment> CustomerPayments { get; set; }
+        //public DbSet<JobCard> JobCards { get; set; }
+        public DbSet<InvoiceItem> InvoiceItem { get; set; }
+        public DbSet<Invoice> Invoice { get; set; }
+        public DbSet<CashBook> CashBooks { get; set; }
+
+
+
+
+
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+           modelBuilder.Entity<InvoiceItem>()
+                .HasKey(c => new { c.InvoiceId, c.ItemId }); 
 
             //seed categories
             modelBuilder.Entity<ItemCategory>().HasData(new ItemCategory { CategoryId = 1, CategoryName = "Raw Materials", CategoryDescription = "Buy your raw materials" });

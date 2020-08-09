@@ -3,19 +3,21 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Station2.Models;
 
 namespace Station2.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200731154737_Rating")]
+    partial class Rating
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.6")
+                .HasAnnotation("ProductVersion", "3.1.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -215,29 +217,6 @@ namespace Station2.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("Station2.Models.CashBook", b =>
-                {
-                    b.Property<int>("CashTableId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<double>("Amount")
-                        .HasColumnType("float");
-
-                    b.Property<int>("CashBookType")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PaymentId")
-                        .HasColumnType("int");
-
-                    b.HasKey("CashTableId");
-
-                    b.HasIndex("PaymentId");
-
-                    b.ToTable("CashBooks");
-                });
-
             modelBuilder.Entity("Station2.Models.CustomerOrder", b =>
                 {
                     b.Property<int>("CustomerOrderId")
@@ -249,6 +228,19 @@ namespace Station2.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(100)")
                         .HasMaxLength(100);
+
+                    b.Property<string>("AddressLine2")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("Country")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -265,10 +257,25 @@ namespace Station2.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
+                    b.Property<DateTime>("OrderPlaced")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("OrderTotal")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
                         .HasColumnType("nvarchar(25)")
                         .HasMaxLength(25);
+
+                    b.Property<string>("State")
+                        .HasColumnType("nvarchar(10)")
+                        .HasMaxLength(10);
+
+                    b.Property<string>("ZipCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(10)")
+                        .HasMaxLength(10);
 
                     b.HasKey("CustomerOrderId");
 
@@ -307,88 +314,6 @@ namespace Station2.Migrations
                     b.HasIndex("ItemId");
 
                     b.ToTable("CustomerOrderDetails");
-                });
-
-            modelBuilder.Entity("Station2.Models.CustomerPayment", b =>
-                {
-                    b.Property<int>("PaymentId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<float>("Balance")
-                        .HasColumnType("real");
-
-                    b.Property<float>("Cash")
-                        .HasColumnType("real");
-
-                    b.Property<int>("InvoiceId")
-                        .HasColumnType("int");
-
-                    b.Property<float>("NetAmount")
-                        .HasColumnType("real");
-
-                    b.Property<int>("PaymentMethod")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PaymentStatus")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PaymentType")
-                        .HasColumnType("int");
-
-                    b.Property<float>("RemainAmount")
-                        .HasColumnType("real");
-
-                    b.HasKey("PaymentId");
-
-                    b.HasIndex("InvoiceId");
-
-                    b.ToTable("CustomerPayments");
-                });
-
-            modelBuilder.Entity("Station2.Models.Invoice", b =>
-                {
-                    b.Property<int>("InvoiceId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("CustomerOrderId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("InvoiceDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("InvoiceState")
-                        .HasColumnType("int");
-
-                    b.Property<double?>("InvoiceTotal")
-                        .HasColumnType("float");
-
-                    b.Property<int>("User")
-                        .HasColumnType("int");
-
-                    b.HasKey("InvoiceId");
-
-                    b.HasIndex("CustomerOrderId");
-
-                    b.ToTable("Invoice");
-                });
-
-            modelBuilder.Entity("Station2.Models.InvoiceItem", b =>
-                {
-                    b.Property<int>("InvoiceId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ItemId")
-                        .HasColumnType("int");
-
-                    b.HasKey("InvoiceId", "ItemId");
-
-                    b.HasIndex("ItemId");
-
-                    b.ToTable("InvoiceItem");
                 });
 
             modelBuilder.Entity("Station2.Models.ItemCategory", b =>
@@ -595,15 +520,6 @@ namespace Station2.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Station2.Models.CashBook", b =>
-                {
-                    b.HasOne("Station2.Models.CustomerPayment", "Payment")
-                        .WithMany()
-                        .HasForeignKey("PaymentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Station2.Models.CustomerOrderDetail", b =>
                 {
                     b.HasOne("Station2.Models.CustomerOrder", "CustomerOrder")
@@ -613,39 +529,6 @@ namespace Station2.Migrations
                         .IsRequired();
 
                     b.HasOne("Station2.Models.ItemMaster", "ItemMaster")
-                        .WithMany()
-                        .HasForeignKey("ItemId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Station2.Models.CustomerPayment", b =>
-                {
-                    b.HasOne("Station2.Models.Invoice", "Invoice")
-                        .WithMany("Payments")
-                        .HasForeignKey("InvoiceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Station2.Models.Invoice", b =>
-                {
-                    b.HasOne("Station2.Models.CustomerOrder", "CustomerOrder")
-                        .WithMany()
-                        .HasForeignKey("CustomerOrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Station2.Models.InvoiceItem", b =>
-                {
-                    b.HasOne("Station2.Models.Invoice", "Invoice")
-                        .WithMany("InvoiceItem")
-                        .HasForeignKey("InvoiceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Station2.Models.ItemMaster", "Item")
                         .WithMany()
                         .HasForeignKey("ItemId")
                         .OnDelete(DeleteBehavior.Cascade)

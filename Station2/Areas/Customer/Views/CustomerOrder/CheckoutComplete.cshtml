@@ -1,1 +1,22 @@
-﻿<h1>@ViewBag.CheckoutCompleteMessage </h1>
+﻿@model int
+
+@{
+    ViewData["Title"] = "CheckoutComplete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Order Confirmation</h1>
+
+<div class="container row">
+    <div class="col-12 text-center">
+        <h2>@ViewBag.CheckoutCompleteMessage </h2>
+
+    </div>
+    <div class="col-12 text-center" style="color:maroon">
+        <br />
+        Thank you for submitting a request online! <br />
+        We have received your order and you will receive it shortly!
+        <br />
+        Your Request Number is : @Model
+    </div>
+</div>

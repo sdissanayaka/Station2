@@ -1,0 +1,155 @@
+﻿@model InvoicePrintViewModel
+@using Station2.Models;
+
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h1>Invoice</h1>
+<div class="border backgroundWhite">
+    <div class="row">
+        <div class="col-4">
+            <a asp-action="Index" asp-controller="Invoices" asp-area="Admin" class="btn btn-primary bg-gradient-cyan rounded-pill mr-2"><i class="fa fa-arrow-left" aria-hidden="true"></i> &nbsp; Back To Invoices</a>
+        </div>
+
+    </div>
+</div>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <!-- left column -->
+            <div class="col-md-6">
+                <!-- general form elements -->
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h4>Customer Details.</h4>
+                    </div>
+                    <form method="post" class="form-horizontal" role="form">
+
+                        <div class="text-danger"></div>
+
+
+                        <div class="form-group">
+                            <label class="col-md-12 control-label">Last Name</label>
+                            <div class="col-md-12">
+                                <input asp-for="CustomerOrder.LastName" readonly type="text" class="form-control" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-12 control-label">First Name</label>
+                            <div class="col-md-12">
+                                <input asp-for="CustomerOrder.FirstName" readonly type="text" class="form-control" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-12 control-label">Address</label>
+                            <div class="col-md-12">
+                                <input asp-for="CustomerOrder.AddressLine1" readonly type="text" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-12 control-label">Phone Number</label>
+                            <div class="col-md-12">
+                                <input asp-for="CustomerOrder.PhoneNumber" readonly type="text" class="form-control" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-12 control-label">Email</label>
+                            <div class="col-md-12">
+                                <input asp-for="CustomerOrder.Email" readonly type="text" class="form-control" />
+                            </div>
+                        </div>
+
+                        <!--post the form-->
+
+                        <div class="form-group">
+                            <!--div class="col-md-offset-2 col-md-5">
+
+                                <input type="submit" class="btn btn-danger bg-gradient-red rounded-pill" value="Complete order" />
+                            </!--div-->
+                        </div>
+
+                    </form>
+                </div>
+
+
+            </div>
+            <!--/.col (left) -->
+            <!-- right column -->
+            <div class="col-md-6">
+                <!-- general form elements disabled -->
+                <div class="card card-warning">
+                    <div class="card-header">
+                        <h3 class="card-title">Order Details</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <ul class="list-group-mb-3">
+
+                        @foreach (var item in Model.CustomerOrderDetail)
+                        {
+                            <li class="list-group-item d-flex justify-content-between">
+                                <div>
+                                    <input type="hidden" asp-for="@item.CustomerOrderDetailId" />
+                                    <h6 class="my-0">Order Id:@item.CustomerOrderId</h6>
+                                    <h6 class="my-0">Item Id: @item.ItemId</h6>
+                                    <h6 class="my-0">Item Name: @item.ItemMaster.ItemName</h6>
+                                    <h6 class="my-0">@item.OrderTotal</h6>
+
+                                </div>
+                            </li>
+                        }
+                        <li class="list-group-item d-flex justify-content-between bg-light">
+                            <small class="text-primary">Total (Rs)</small>
+                        </li>
+                    </ul>
+
+                </div>
+                <div class="col-md-12">
+                    <!-- general form elements disabled -->
+                    <div class="card card-warning">
+                        <div class="card-header">
+                            <h3 class="card-title">Payment Details</h3>
+                        </div>
+
+                        <ul class="col-mb-6">
+
+                            @foreach (var line in Model.CustomerPayments)
+                            {
+                                <li class="list-group-item d-flex justify-content-between">
+                                    <div>
+                                        <input type="hidden" asp-for="@line.InvoiceId" />
+                                        <h6 class="my-0">Net Amount :@line.NetAmount</h6>
+                                        <h6 class="my-0">Payment Method(Cash/Card/Chaequ) : @line.PaymentMethod</h6>
+                                        <h6 class="my-0">Cash : @line.Cash</h6>
+                                        <h6 class="my-0">Balance : @line.Balance</h6>
+                                        <h6 class="my-0">Remaing Amount (Only for advancement payments) : @line.Cash</h6>
+                                        <h6 class="my-0">Payment Status(Payment Completed/ More to pay) : @line.PaymentStatus</h6>
+                                    </div>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+                
+
+            </div>
+                    <div class="form-group">
+
+                        <div class="col-md-offset-2 col-md-5">
+
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+            </div>
+
+</section>
+

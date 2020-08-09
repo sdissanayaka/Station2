@@ -23,10 +23,10 @@ namespace Station2.Models
         public void CreateOrder(CustomerOrder order)
             //use the repositories to create both order and its order details
         {
-            order.OrderPlaced = DateTime.Now;
+            //order.OrderPlaced = DateTime.Now;
 
             var shoppingCartItems = _shoppingCart.ShoppingCartItems;
-            order.OrderTotal = _shoppingCart.GetShoppingCartTotal();
+            //order.OrderTotal = _shoppingCart.GetShoppingCartTotal();
 
             order.OrderDetails = new List<CustomerOrderDetail>();
             //adding the order with its details
@@ -38,7 +38,10 @@ namespace Station2.Models
                 {
                     Amount = shoppingCartItem.Amount,
                     ItemId = shoppingCartItem.Item.ItemId,
-                    Price = shoppingCartItem.Item.Price
+                    Price = shoppingCartItem.Item.Price,
+                    OrderPlaced = DateTime.Now,
+                    OrderTotal = _shoppingCart.GetShoppingCartTotal()
+
                 };
 
                 order.OrderDetails.Add(orderDetail);

@@ -53,10 +53,10 @@ namespace Station2.Controllers
                 return View(order);
             }
 
-            public IActionResult CheckoutComplete()
+            public IActionResult CheckoutComplete(int CustomerOrderId)
             {
                 ViewBag.CheckoutCompleteMessage = "Thanks for your order. You'll soon receive your order!";
-                return View();
+                return View(CustomerOrderId);
             }
         }
     }
