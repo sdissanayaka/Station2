@@ -75,13 +75,10 @@ namespace Station2.Areas.Admin.Controllers
             // var invoice = new Invoice();
             //invoice.InvoiceItem = new List<InvoiceItem>();
             //PopulateInvoiceItems(invoice);
-
-
             /*if (id != customerOrder.CustomerOrderId)
             {
                 return NotFound();
             }*/
-
            // ViewData["CustomerOrderId"] = customerOrder.CustomerOrderId;
 
            ViewData["CustomerOrderId"] = new SelectList(_context.CustomerOrders, "CustomerOrderId", "CustomerOrderId");

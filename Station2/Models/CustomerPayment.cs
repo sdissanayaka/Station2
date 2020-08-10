@@ -22,7 +22,7 @@ namespace Station2.Models
         [Display(Name = "Payment Type")]
         public PaymentType PaymentType { get; set; } //Full payment
         [Required]
-        [Display(Name = "Net Amount")]
+        [Display(Name = "Payment Amount")]
         public float NetAmount { get; set; }
         [Required]
         [Display(Name = "Cash")]
@@ -30,9 +30,9 @@ namespace Station2.Models
         [Required]
         [Display(Name = "Balance")]
         public float Balance { get; set; }
-        [Required]
-        [Display(Name = "Remaining Amount")]
-        public float RemainAmount { get; set; }
+        //[Required]
+        //[Display(Name = "Remaining Amount")]
+        //public float RemainAmount { get; set; }
         [Required]
         [Display(Name = "Payment Status")]
         public PaymentStatus PaymentStatus { get; set; } //Payment comleted or more to play

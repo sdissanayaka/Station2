@@ -28,6 +28,8 @@ namespace Station2.Models
         public DbSet<InvoiceItem> InvoiceItem { get; set; }
         public DbSet<Invoice> Invoice { get; set; }
         public DbSet<CashBook> CashBooks { get; set; }
+        public DbSet<Event> Events { get; set; }
+
 
 
 

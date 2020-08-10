@@ -34,7 +34,6 @@
                     InvoiceTotal
                 </th>
 
-                <th>Items</th>
               <th></th>
             </tr>
            </thead>
@@ -60,12 +59,7 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.InvoiceTotal)
                 </td>
-                <td>
-                    @foreach (var orderItem in item.InvoiceItem)
-                    {
-                        @orderItem.Item.ItemName <br />
-                    }
-                </td>
+                
 
                 <td>
                     <a asp-area="Admin" asp-controller="CustomerPayments" asp-action="Create" class="btn btn-success bg-gradient-cyan rounded-pill mr-2" style="cursor:pointer; width:100px;" asp-route-id="@item.InvoiceId"><i class="fas fa-edit"></i> &nbsp; Payment</a>

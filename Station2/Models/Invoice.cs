@@ -24,7 +24,7 @@ namespace Station2.Models
         [Display(Name = "State")]
         public InvoiceState InvoiceState { get; set; }
         [Display(Name = "Invoice Total")]
-        public double? InvoiceTotal { get; set; }
+        public double InvoiceTotal { get; set; }
 
         public CustomerOrder CustomerOrder { get; set; }
         public ICollection<CustomerPayment> Payments { get; set; }

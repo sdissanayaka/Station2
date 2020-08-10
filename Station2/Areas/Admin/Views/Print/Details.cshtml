@@ -111,10 +111,10 @@
                                         @Html.DisplayFor(modelItem => item.ItemMaster.ItemName)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.Amount)
+                                        @Html.DisplayFor(modelItem => item.ItemMaster.ItemDescription)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.ItemMaster.ItemDescription)
+                                        @Html.DisplayFor(modelItem => item.Amount)
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.ItemMaster.Price)
@@ -178,12 +178,12 @@
                                         @Html.DisplayFor(modelItem => item.Balance)
                                     </td>
                                     </tr>
-                                <tr>
+                                <!--tr>
                                     <th style="width:50%">Remaining amount:</th>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.RemainAmount)
+                                       @* @Html.DisplayFor(modelItem => item.RemainAmount)*@
                                     </td>
-                                    </tr>
+                                    </!--tr-->
                                 <tr>
                                     <th style="width:50%">Payment Status (Completed/Not Completed):</th>
                                     <td>

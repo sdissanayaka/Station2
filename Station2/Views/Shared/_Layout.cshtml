@@ -109,6 +109,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
             });
         });
     </script>
+    <script src="~/js/daypilot/daypilot-all.min.js" asp-append-version="true"></script>
+
+    <div id="dp"></div>
+    <script>
+        var dp = new DayPilot.Month("dp");
+        dp.init();
+    </script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>

@@ -53,15 +53,25 @@ namespace Station2.Areas.Admin.Controllers
         }*/
         public async Task<IActionResult> CreateAsync(int? id)
         {
+            var payments = from p in _context.CustomerPayments
+                           select p;
             var invoice = await _context.Invoice.FindAsync(id);
 
-            if (id == null)
+            if (id != invoice.InvoiceId)
             {
                 return NotFound();
             }
 
+            double paidTotal = 0;
+            payments = payments.Where(p => p.InvoiceId == id);
+            foreach (var single in payments)
+            {
+                paidTotal += single.NetAmount;
+            }
+            double dueAmount = invoice.InvoiceTotal - paidTotal;
 
-
+            ViewBag.PaidTotal = paidTotal;
+            ViewBag.DueAmount = dueAmount;
             ViewData["InvoiceID"] = new SelectList(_context.Invoice, "InvoiceId", "InvoiceId", invoice.InvoiceId);
             return View();
         }

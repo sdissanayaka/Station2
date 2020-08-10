@@ -9,29 +9,31 @@
                 <a class="nav-link text-dark bg-gradient-cyan rounded-pill mr-2" asp-area="Customer" asp-controller="ItemMasterCustomer" asp-action="List">Home</a>
             </li>
             <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle text-dark bg-gradient-cyan rounded-pill mr-2" href="#" id="navbarDropDown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Content Managment
-                   </a>
-                  <div class="dropdown-menu" aria-labelledby="navbarDropDown">
-                      <a class="dropdown-item text-dark" asp-area="Admin" asp-controller="ItemCategories" asp-action="Index">Category</a>
-                      <a class="dropdown-item text-dark" asp-area="Admin" asp-controller="ItemMasters" asp-action="Index">Item Master</a>
-                      <a class="dropdown-item text-dark" asp-area="Admin" asp-controller="Suppliers" asp-action="Index">Suppliers</a>
-                      <a class="dropdown-item text-dark" asp-area="Admin" asp-controller="PurchaseOrder" asp-action="Index">Purchase Order</a>
-
-                  </div>
+                <a class="nav-link dropdown-toggle text-dark bg-gradient-cyan rounded-pill mr-2" href="#" id="navbarDropDown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Content Managment
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropDown">
+                    <a class="dropdown-item text-dark" asp-area="Admin" asp-controller="ItemCategories" asp-action="Index">Category</a>
+                    <a class="dropdown-item text-dark" asp-area="Admin" asp-controller="ItemMasters" asp-action="Index">Item Master</a>
+                    <a class="dropdown-item text-dark" asp-area="Admin" asp-controller="Suppliers" asp-action="Index">Suppliers</a>
+                    <a class="dropdown-item text-dark" asp-area="Admin" asp-controller="PurchaseOrder" asp-action="Index">Purchase Order</a>
+                    <a class="dropdown-item text-dark" asp-area="Admin" asp-controller="JobCards" asp-action="Index">Job card</a>
+                    <a class="dropdown-item text-dark" asp-area="Admin" asp-controller="CustomerPayments" asp-action="Index">Payments</a>
+                    <a class="dropdown-item text-dark" asp-area="Admin" asp-controller="Invoices" asp-action="Index">Invoice</a>
+                    <a class="dropdown-item text-dark" asp-area="Customer" asp-controller="Events" asp-action="Index">Appointments</a>
+                </div>
             </li>
-
-
-            <li class="nav-item ">
-                <a class="nav-link text-dark bg-gradient-cyan rounded-pill mr-2" asp-area="" asp-controller="Contact" asp-action="Index">Contact</a>
-            </li>
+                       
             @await Component.InvokeAsync("CategoryMenu")
 
             @await Component.InvokeAsync("ShoppingCartSummary")
-            <partial name="_LoginPartial"/>
-
-
-
+            <li>
+                <a class="nav-link text-dark bg-gradient-cyan rounded-pill mr-2" asp-area="" asp-controller="Appointments" asp-action="Index">Appointment</a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link text-dark bg-gradient-cyan rounded-pill mr-2" asp-area="" asp-controller="Contact" asp-action="Index">Contact</a>
+            </li>
+            <partial name="_LoginPartial" />
         </ul>
 
         <!-- SEARCH FORM -->

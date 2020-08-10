@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Station2.Models;
 
 namespace Station2.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200809110724_eventupdatenew")]
+    partial class eventupdatenew
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -337,6 +339,9 @@ namespace Station2.Migrations
                     b.Property<int>("PaymentType")
                         .HasColumnType("int");
 
+                    b.Property<float>("RemainAmount")
+                        .HasColumnType("real");
+
                     b.HasKey("PaymentId");
 
                     b.HasIndex("InvoiceId");
@@ -388,7 +393,7 @@ namespace Station2.Migrations
                     b.Property<int>("InvoiceState")
                         .HasColumnType("int");
 
-                    b.Property<double>("InvoiceTotal")
+                    b.Property<double?>("InvoiceTotal")
                         .HasColumnType("float");
 
                     b.Property<int>("User")
