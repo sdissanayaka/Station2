@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Station2.Models
 {
-    public class ItemRepository: IItemMasterRepository
+    public class IRepository: IItemMasterRepository
     {
         private readonly AppDbContext _appDbContext;
 
-        public ItemRepository(AppDbContext appDbContext)
+        public IRepository(AppDbContext appDbContext)
         {
             _appDbContext = appDbContext;
         }

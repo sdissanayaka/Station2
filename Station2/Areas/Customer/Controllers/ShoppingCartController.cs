@@ -42,7 +42,7 @@ namespace Station2.Controllers
             {
                 _shoppingCart.AddToCart(selectedItem, 1);
             }
-            return RedirectToAction("Index"); //redirect user to the index
+            return RedirectToAction("List" ,"ItemMasterCustomer"); //redirect user to the index
         }
 
         public RedirectToActionResult RemoveFromShoppingCart(int itemId)

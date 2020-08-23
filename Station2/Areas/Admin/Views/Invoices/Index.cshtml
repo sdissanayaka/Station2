@@ -7,71 +7,80 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+
 
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table id="example1" class="table table-striped table-bordered" style="width:100%">
-    <thead>
-          <tr>
-                <th>
-                    Invoice Id
-                </th>
-                <th>
-                    CustomerOrderId
-                </th>
-                <th>
-                    User
-                </th>
-                <th>
-                    InvoiceDate
-                </th>
-                <th>
-                    InvoiceState
-                </th>
-                <th>
-                    InvoiceTotal
-                </th>
 
-              <th></th>
-            </tr>
-           </thead>
-    <tbody>
-        @foreach (var item in Model.Invoice)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.InvoiceId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CustomerOrderId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.User)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.InvoiceDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.InvoiceState)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.InvoiceTotal)
-                </td>
-                
+<div class="card">
+    <div class="card-header">
+        <h1 class="card-title">Invoices </h1>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+        <table id="example1" class="table table-striped table-bordered" style="width:100%">
+            <thead>
+                <tr>
+                    <th>
+                        Invoice Id
+                    </th>
+                    <th>
+                        CustomerOrderId
+                    </th>
+                    <th>
+                        User
+                    </th>
+                    <th>
+                        InvoiceDate
+                    </th>
+                    <th>
+                        InvoiceState
+                    </th>
+                    <th>
+                        InvoiceTotal
+                    </th>
 
-                <td>
-                    <a asp-area="Admin" asp-controller="CustomerPayments" asp-action="Create" class="btn btn-success bg-gradient-cyan rounded-pill mr-2" style="cursor:pointer; width:100px;" asp-route-id="@item.InvoiceId"><i class="fas fa-edit"></i> &nbsp; Payment</a>
-                    <a asp-area="Admin" asp-controller="InvoicePrint" asp-action="Details" class="btn btn-success bg-gradient-cyan rounded-pill mr-2" style="cursor:pointer; width:100px;" asp-route-id="@item.InvoiceId"><i class="fas fa-edit"></i> &nbsp; View Invoice</a>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Invoice)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.InvoiceId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CustomerOrderId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.User)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.InvoiceDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.InvoiceState)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.InvoiceTotal)
+                        </td>
 
-                    <a asp-area="Admin" asp-controller="Print" asp-action="Details" class="btn btn-success bg-gradient-cyan rounded-pill mr-2" style="cursor:pointer; width:100px;" asp-route-id="@item.InvoiceId"><i class="fas fa-edit"></i> &nbsp; Print Invoice</a>
 
-                    <a asp-action="Edit" asp-route-id="@item.InvoiceId">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.InvoiceId">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.InvoiceId">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+                        <td>
+                            <a asp-area="Admin" asp-controller="CustomerPayments" asp-action="Create" class="btn btn-success bg-gradient-cyan rounded-pill mr-1" style="cursor:pointer; width:100px;" asp-route-id="@item.InvoiceId">@*<i class="fas fa-edit"></i>*@ &nbsp; Payment</a>
+                            <a asp-area="Admin" asp-controller="InvoicePrint" asp-action="Details" class="btn btn-success bg-gradient-cyan rounded-pill mr-1" style="cursor:pointer; width:70px;" asp-route-id="@item.InvoiceId">@*<i class="fas fa-edit"></i>*@ &nbsp; View</a>
+
+                            <a asp-area="Admin" asp-controller="Print" asp-action="Details" class="btn btn-success bg-gradient-cyan rounded-pill mr-1" style="cursor:pointer; width:90px;" asp-route-id="@item.InvoiceId">@*<i class="fas fa-edit"></i>*@ &nbsp; Print</a>
+
+                            <!--a asp-action="Edit" asp-route-id="@item.InvoiceId">Edit</!--a--> 
+                            <!--a asp-action="Details" asp-route-id="@item.InvoiceId">Details</!--a--> 
+                            <a asp-action="Delete" class="btn btn-danger bg-gradient-red rounded-pill mr-1" asp-route-id="@item.InvoiceId">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -50,9 +50,10 @@ namespace Station2
                 options.LogoutPath = $"/Identity/Account/Logout";
                 options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
             });*/
-            services.AddScoped<IItemMasterRepository, ItemRepository>();
+            services.AddScoped<IItemMasterRepository, IRepository>();
             services.AddScoped<IItemCategoryRepository, CategoryRepository>();
             services.AddScoped<ICustomerOrderRepository, CustomerOrderRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
 
             services.AddScoped<ShoppingCart>(sp => ShoppingCart.GetCart(sp));
             //to create a scoped shopping cart using the GetCart method
